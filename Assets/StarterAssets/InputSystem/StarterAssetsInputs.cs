@@ -1,6 +1,7 @@
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 #endif
 
 namespace StarterAssets
@@ -11,6 +12,7 @@ namespace StarterAssets
 		public Vector2 move;
 		public Vector2 look;
 		public bool jump;
+		public bool attack;
 		public bool sprint;
 
 		[Header("Movement Settings")]
@@ -41,6 +43,11 @@ namespace StarterAssets
 			JumpInput(value.isPressed);
 		}
 
+		public void OnAttack(InputValue value)
+        {
+			AttackInput(value.isPressed);
+        }
+
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
@@ -64,6 +71,11 @@ namespace StarterAssets
 		{
 			jump = newJumpState;
 		}
+
+		public void AttackInput(bool newAttackState)
+        {
+			attack = newAttackState;
+        }
 
 		public void SprintInput(bool newSprintState)
 		{

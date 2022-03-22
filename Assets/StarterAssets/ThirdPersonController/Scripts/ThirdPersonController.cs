@@ -82,10 +82,12 @@ namespace StarterAssets
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
 
-		private Animator _animator;
+		public Animator _animator;
 		private CharacterController _controller;
-		private StarterAssetsInputs _input;
+		public StarterAssetsInputs _input;
 		private GameObject _mainCamera;
+
+		public GameObject _xbot;
 
 		private const float _threshold = 0.01f;
 
@@ -102,7 +104,8 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			_hasAnimator = TryGetComponent(out _animator);
+			//_xbot = GameObject.FindGameObjectWithTag("Armature");
+			_hasAnimator = /*_xbot.*/TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
@@ -115,11 +118,12 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			_hasAnimator = TryGetComponent(out _animator);
+			_hasAnimator = /*_xbot.*/TryGetComponent(out _animator);
 			
 			JumpAndGravity();
 			GroundedCheck();
-			Move();
+			if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Slash_1"))
+				Move();
 		}
 
 		private void LateUpdate()
@@ -154,8 +158,8 @@ namespace StarterAssets
 			// if there is an input and camera position is not fixed
 			if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
 			{
-				_cinemachineTargetYaw += _input.look.x * Time.deltaTime;
-				_cinemachineTargetPitch += _input.look.y * Time.deltaTime;
+				_cinemachineTargetYaw += _input.look.x * Time.fixedDeltaTime;
+				_cinemachineTargetPitch += _input.look.y * Time.fixedDeltaTime;
 			}
 
 			// clamp our rotations so our values are limited 360 degrees
