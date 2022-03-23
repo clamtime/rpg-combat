@@ -104,8 +104,8 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			//_xbot = GameObject.FindGameObjectWithTag("Armature");
-			_hasAnimator = /*_xbot.*/TryGetComponent(out _animator);
+			_xbot = GameObject.FindGameObjectWithTag("Armature");
+			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
@@ -118,7 +118,10 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			_hasAnimator = /*_xbot.*/TryGetComponent(out _animator);
+			//if (transform.position != _xbot.transform.position && _animator.GetCurrentAnimatorStateInfo(0).IsName("Idle Walk Run Blend"))
+			//	transform.position = _xbot.transform.position;
+
+			_hasAnimator = TryGetComponent(out _animator);
 			
 			JumpAndGravity();
 			GroundedCheck();
@@ -158,8 +161,8 @@ namespace StarterAssets
 			// if there is an input and camera position is not fixed
 			if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
 			{
-				_cinemachineTargetYaw += _input.look.x * Time.fixedDeltaTime;
-				_cinemachineTargetPitch += _input.look.y * Time.fixedDeltaTime;
+				_cinemachineTargetYaw += _input.look.x   * Time.deltaTime;
+				_cinemachineTargetPitch += _input.look.y * Time.deltaTime;
 			}
 
 			// clamp our rotations so our values are limited 360 degrees

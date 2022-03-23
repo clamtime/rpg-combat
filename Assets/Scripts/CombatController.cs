@@ -16,6 +16,7 @@ public class CombatController : MonoBehaviour
         if (tpc._input.attack)
         {
             tpc._animator.SetBool("StartAttack", true);
+            
             if (tpc._animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95)
             {
                 tpc._input.attack = false;
