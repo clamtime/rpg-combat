@@ -231,10 +231,10 @@
                 {
                     "name": "",
                     "id": "6dd2e15e-7405-449a-89dc-9a748820b546",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KeyboardMouse",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -26,8 +26,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 65472
   tint:
-    m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 0
+    m_Value: {r: 0.735849, g: 0.6274153, b: 0.3713955, a: 1}
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
     m_Value: {fileID: 0}
   dirtIntensity:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 0.63
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
