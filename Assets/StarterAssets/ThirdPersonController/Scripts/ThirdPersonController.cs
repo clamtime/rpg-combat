@@ -125,11 +125,15 @@ namespace StarterAssets
 			
 			JumpAndGravity();
 			GroundedCheck();
+		}
+
+        private void FixedUpdate()
+        {
 			if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Slash_1"))
 				Move();
 		}
 
-		private void LateUpdate()
+        private void LateUpdate()
 		{
 			CameraRotation();
 		}

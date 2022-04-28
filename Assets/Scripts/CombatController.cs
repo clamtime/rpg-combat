@@ -6,27 +6,60 @@ public class CombatController : MonoBehaviour
 {
     public List<Effect> effects;
     public GameObject weapon;
+    public bool weaponDrawn = false;
+
+    public Transform drawnWeaponPosition, sheathWeaponPosition;
 
     private StarterAssets.ThirdPersonController tpc;
     private bool attacking = false;
     private AudioSource audioSource;
+    private Animator animator;
 
     void Start()
     {
         tpc = GetComponent<StarterAssets.ThirdPersonController>();
+        animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         DisableEffects();
+        SheathWeapon();
     }
 
     void Update()
     {
         if (tpc._input.attack && !attacking)
         {
-            attacking = true;
-            tpc._animator.SetTrigger("Attack");
-            StartCoroutine(EffectAttack());
-            StartCoroutine(EffectAudio());
+            if (weaponDrawn)
+            {
+                attacking = true;
+                animator.SetTrigger("Attack");
+                StartCoroutine(EffectAttack());
+                StartCoroutine(EffectAudio());
+            }
+            else
+            {
+                tpc._input.attack = false;
+
+                DrawWeapon();
+            }
         }
+    }
+
+    private void DrawWeapon()
+    {
+        animator.SetTrigger("Sheath");
+        animator.SetBool("WeaponDrawn", weaponDrawn);
+        weaponDrawn = true;
+        transform.parent = drawnWeaponPosition;
+        transform.position = new Vector3(0, 0, 0);
+    }
+
+    private void SheathWeapon()
+    {
+        animator.SetTrigger("Sheath");
+        animator.SetBool("WeaponDrawn", weaponDrawn);
+        weaponDrawn = false;
+        transform.parent = sheathWeaponPosition;
+        transform.position = new Vector3(0, 0, 0);
     }
 
     IEnumerator EffectAudio()
@@ -48,7 +81,7 @@ public class CombatController : MonoBehaviour
         yield return new WaitForSeconds(1);
         DisableEffects();
         tpc._input.attack = attacking = false;
-        tpc._animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Attack");
     }
 
     private void DisableEffects()
